@@ -5,14 +5,15 @@ Yet Another Chip-8 Virtual Machine (initial development, 2015)
 ### Installation ###
 
 ```
-$ sudo apt-get install libsdl2-dev   # or equivalent
-$ go get bitbucket.com/qx89l4/yac8vm/cmd/yac8vm
+$ brew install sdl2 pkg-config # or equivalent
+$ go get github.com/qx89l4/yac8vm
 ```
 
 ### Usage ###
 
 ```
-$ ROMPATH=$GOPATH/src/bitbucket.com/qx89l4/yac8vm/roms
+$ ROMPATH=$(go env GOPATH)/src/github.com/qx89l4/yac8vm/roms
+$ ls $ROMPATH
 $ yac8vm run $ROMPATH/romfile  # execute ROM
 $ yac8vm dis $ROMPATH/romfile  # disassemble ROM
 ```
