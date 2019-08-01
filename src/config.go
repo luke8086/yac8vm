@@ -3,7 +3,7 @@
  * Distributed under the terms of GPL-2 License.
  */
 
-package yac8vm
+package src
 
 const (
 	AppVersion = "0.0.1"

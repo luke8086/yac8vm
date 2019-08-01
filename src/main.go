@@ -3,7 +3,7 @@
  * Distributed under the terms of GPL-2 License.
  */
 
-package main
+package src
 
 import (
 	"fmt"
@@ -11,8 +11,7 @@ import (
 	"log"
 	"os"
 
-	"bitbucket.com/qx89l4/yac8vm/src"
-	"gopkg.in/alecthomas/kingpin.v2-unstable"
+	"gopkg.in/alecthomas/kingpin.v2"
 )
 
 func handleError(err error) {
@@ -26,11 +25,11 @@ func runApplication(romFileName string) {
 	handleError(err)
 	defer fp.Close()
 
-	g, err := yac8vm.NewGUI()
+	g, err := NewGUI()
 	handleError(err)
 	defer g.Destroy()
 
-	m, err := yac8vm.NewMachine(g, fp)
+	m, err := NewMachine(g, fp)
 	handleError(err)
 	m.Run()
 }
@@ -51,7 +50,7 @@ func disApplication(romFileName string) {
 		handleError(err)
 
 		raw := uint16(buf[0])<<8 | uint16(buf[1])
-		i := yac8vm.NewInstr(raw)
+		i := NewInstr(raw)
 
 		if !i.Valid {
 			// break
@@ -63,10 +62,10 @@ func disApplication(romFileName string) {
 	}
 }
 
-func main() {
-	desc := yac8vm.AppShort + " " + yac8vm.AppVersion + " - " + yac8vm.AppTitle
-	app := kingpin.New(yac8vm.AppShort, desc)
-	app.Version(yac8vm.AppVersion)
+func Main() {
+	desc := AppShort + " " + AppVersion + " - " + AppTitle
+	app := kingpin.New(AppShort, desc)
+	app.Version(AppVersion)
 
 	runCmd := app.Command("run", "Run an application")
 	runCmdRomFile := runCmd.Arg("romfile", "ROM file to execute").Required().String()
@@ -82,6 +81,6 @@ func main() {
 	case disCmd.FullCommand():
 		disApplication(*disCmdRomFile)
 	default:
-		app.Usage(os.Stderr)
+		app.FatalUsage("")
 	}
 }

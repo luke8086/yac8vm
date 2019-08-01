@@ -1,4 +1,4 @@
-package yac8vm
+package src
 
 import (
 	"github.com/veandco/go-sdl2/sdl"
@@ -104,10 +104,7 @@ func (g *GUI) ProcessEvent(m *Machine) {
 	case *sdl.WindowEvent:
 		m.Draw()
 
-	case *sdl.KeyDownEvent:
-		g.ProcessKey(m, t.Keysym.Sym, true)
-
-	case *sdl.KeyUpEvent:
-		g.ProcessKey(m, t.Keysym.Sym, false)
+	case *sdl.KeyboardEvent:
+		g.ProcessKey(m, t.Keysym.Sym, t.Type == sdl.KEYDOWN)
 	}
 }

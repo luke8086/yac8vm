@@ -3,7 +3,7 @@
  * Distributed under the terms of GPL-2 License.
  */
 
-package yac8vm
+package src
 
 type Opcode struct {
 	Pattern     uint16
